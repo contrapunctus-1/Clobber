@@ -1,6 +1,6 @@
 # Clobber
-Clobber is an alternative to so called "object prevalence", and in
-particular to cl-prevalence.
+Clobber is an alternative to so-called "object prevalence", and in
+particular to [cl-prevalence](https://cl-prevalence.common-lisp.dev/).
 
 Clobber is both simpler, more flexible, and more robust than systems
 based on object prevalence.  
@@ -12,7 +12,7 @@ system.
 
 It is more flexible because the system itself does not define the
 format of a transaction.  Client code can save transactions as Lisp
-lists, as instances of standard-object, or anything else that can be
+lists, as instances of `standard-object`, or anything else that can be
 serialized.  It is also more flexible because transactions can contain
 any object that can be serialized, including model objects.  With this
 method, client code does not need to manipulate "manually created
@@ -37,7 +37,7 @@ additional robustness it buys in terms of less sensitivity to changes
 in the model classes. 
 
 At the heart of Clobber is a mechanism for serializing objects that
-preserves object identity, much like the reader macros #= and ##,
+preserves object identity, much like the reader macros `#=` and `##`,
 except that Clobber detects sharing within the entire transaction log,
 not only within a single transaction.  This mechanism is what makes it
 possible for client code to put any old object in a transaction, while
