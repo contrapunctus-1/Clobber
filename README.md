@@ -25,16 +25,16 @@ It is more robust because serialization of instances of (subclasses
 of) `standard-object` is not accomplished based on slots.  Slots are
 considered implementation details.  In traditional systems, whenever
 the model evolves, the serialization might no longer be valid.  In
-contrast, Clobber serializes instances of `standard-object` as a list of
-pairs, each one consisting of an initarg and a value.  These pairs can
-be handled by client code in any way it sees fit.  They can be handled
-by an `:initarg`, by `initialize-instance`, or they can be ignored.  The
-downside of the Clobber method is that client code must specify these
-pairs in the form of an initarg and the name of an accessor function
-to be called to obtain the value used for the initarg.  This
-inconvenience is however relatively minor, especially considering the
-additional robustness it buys in terms of less sensitivity to changes
-in the model classes. 
+contrast, Clobber serializes instances of `standard-object` as a list
+of pairs, each one consisting of an initarg and a value.  These pairs
+can be handled by client code in any way it sees fit.  They can be
+handled by an `:initarg`, by `initialize-instance`, or they can be
+ignored.  The downside of the Clobber method is that client code must
+specify these pairs in the form of an initarg and the name of an
+accessor function to be called to obtain the value used for the
+initarg.  This inconvenience is however relatively minor, especially
+considering the additional robustness it buys in terms of less
+sensitivity to changes in the model classes.
 
 At the heart of Clobber is a mechanism for serializing objects that
 preserves object identity, much like the reader macros `#=` and `##`,
