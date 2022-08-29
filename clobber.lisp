@@ -211,6 +211,7 @@
       (make-object-id-table object-table)
     (let ((stream (open filename
                         :direction :output
+                        :if-does-not-exist :create
                         :if-exists :append)))
       (make-instance 'transaction-log
                      :log-stream stream
@@ -274,7 +275,7 @@
   (terpri (log-stream transaction-log))
   (finish-output (log-stream transaction-log)))
 
-(defmacro with-transaction-log ((var file function) &body forms)
-  `(let ((,var (open-transaction-log ,file ,function)))
+(defmacro with-transaction-log ((var file) &body forms)
+  `(let ((,var (make-transaction-log ,file (make-hash-table))))
      (unwind-protect (progn ,@forms)
        (close-transaction-log ,var))))
