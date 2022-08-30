@@ -275,7 +275,15 @@
   (terpri (log-stream transaction-log))
   (finish-output (log-stream transaction-log)))
 
-(defmacro with-transaction-log ((var file) &body forms)
-  `(let ((,var (make-transaction-log ,file (make-hash-table))))
-     (unwind-protect (progn ,@forms)
-       (close-transaction-log ,var))))
+(defparameter *transaction-log* nil)
+
+(defmacro with-transaction-log ((var file function) &body forms)
+  (let ((object-table (gensym)))
+    `(let* ((,object-table  (make-hash-table))
+            (,var  (cond ((null *transaction-log*)
+                          (load-transaction-log ,file ,function ,object-table)
+                          (setf *transaction-log*
+                                (make-transaction-log ,file ,object-table)))
+                         (t *transaction-log*))))
+       (unwind-protect (progn ,@forms)
+         (close-transaction-log ,var)))))
